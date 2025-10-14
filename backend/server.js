@@ -4,8 +4,9 @@ import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import wishlistRoutes from "./routes/wishlistRoutes.js"
-import { sql } from "./config/db.js"
+import productRoutes from "./routes/productRoutes.js";
+import { sql } from "./config/db.js";
+import { aj } from "./lib/arcjet.js";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ app.use(morgan("dev")) // log the requests
 app.use(async (req, res, next) => {
  try {
     const decision = await aj.protect(req, {
-        requested: 1 // specifies taht each request consume 1 token
+        requested: 1, // specifies taht each request consume 1 token
     })
 
     if (decision.isDenied()) {
@@ -49,16 +50,16 @@ app.use(async (req, res, next) => {
  }   
 })
 
-app.use("/api/wishlists", wishlistRoutes)
+app.use("/api/products", productRoutes)
 
 async function initDB() {
     try {
         await sql`
-            CREATE TABLE IF NOT EXISTS wishlists (
+            CREATE TABLE IF NOT EXISTS products (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 image VARCHAR(255) NOT NULL,
-                link VARCHAR(255) NOT NULL,
+                price NUMERIC(10,2) NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `

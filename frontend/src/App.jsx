@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 
 import HomePage from "./pages/HomePage";
-import WishlistPage from "./pages/WishlistPage";
+import ProductPage from "./pages/ProductPage";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -13,7 +13,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/wishlist/:id" element={<WishlistPage />} />
+  <Route path="/product/:id" element={<ProductPage />} />
       </Routes>
     </div>
   )

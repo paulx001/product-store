@@ -1,1 +1,1 @@
-# wishlist-tracker
+# product-store
